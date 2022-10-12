@@ -47,9 +47,17 @@ const AttendanceForm = () => {
 
   const submitForm: any = useMutation(
     (payload) => {
-      return axios.post('/api/email/send', payload)
+      //   return axios.post('/api/email/send', payload)
+      return new Promise((res) => setTimeout(() => res('e'), 2000))
     },
-    { onSuccess: () => reset() }
+    {
+      onSuccess: () => {
+        useStore.setState({
+          showCert: true,
+        })
+        reset()
+      },
+    }
   )
 
   const submit = (form) => {
@@ -73,10 +81,10 @@ const AttendanceForm = () => {
         e.preventDefault()
       }}
     >
-      <Flex flexDirection='column' pt='50px' width='600px'>
+      <Flex flexDirection='column' pt='50px' width='500px'>
         <AppearingEffect
           effect={'bottom'}
-          animationProps={{ delay: 4000, minWidth: '400px' }}
+          animationProps={{ delay: 3000, minWidth: '400px' }}
         >
           <Text type={theme.fonts.span}>Email*</Text>
           <FormTextField
@@ -99,7 +107,7 @@ const AttendanceForm = () => {
           show={errors?.email?.message}
           message='formato de mail invalido'
         />
-        <Spacer vertical={'62px'} />
+        <Spacer vertical={'32px'} />
         <AppearingEffect
           effect={'bottom'}
           animationProps={{ delay: 3500, minWidth: '400px' }}

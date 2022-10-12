@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import ColorLoader from '@/components/dom/ColorLoader'
 import { LocomotiveScrollProvider } from 'react-locomotive-scroll'
 import 'locomotive-scroll/dist/locomotive-scroll.css'
+import Cert from '../sections/Cert/Cert'
 
 const Section = styled.section`
   ${({ height = '100vh' }) => `
@@ -24,7 +25,7 @@ export enum SECTIONS {
 
 const Page = (props) => {
   const video = useRef(null)
-  const videoUrl = useStore((state) => state.videoUrl)
+  const showCert = useStore((state) => state.showCert)
   const containerRef = useRef(null)
   // const { pathname } = useRouter()
   // const path = pathname.split('?')[0]
@@ -40,8 +41,7 @@ const Page = (props) => {
   return (
     <>
       <ColorLoader isLoading={false} />
-
-      <Landing />
+      {showCert ? <Cert /> : <Landing />}
     </>
   )
 }

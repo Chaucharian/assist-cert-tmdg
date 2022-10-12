@@ -8,7 +8,7 @@ const StyledAndAnimatedText = ({
   transition,
   type = 'h1',
   blendMode = 'normal',
-  color = 'white',
+  color = '#FFF',
   fontWeight,
   fontFamily,
   fontSize,
@@ -23,7 +23,6 @@ const StyledAndAnimatedText = ({
     color: ${color};
     font-weight: ${fontWeight ?? fonts[type].fontWeight};
     margin: 0px;
-    mix-blend-mode: ${blendMode};
     font-family: ${fontFamily ?? fonts[type].family};
 
     @media ${device.desktop} {

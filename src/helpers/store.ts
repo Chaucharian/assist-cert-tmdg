@@ -14,6 +14,7 @@ const useStore = create((set): any => {
     changeCameraEffect: false,
     letter: 'h',
     navigationOpen: false,
+    showCert: false,
   }
 })
 
