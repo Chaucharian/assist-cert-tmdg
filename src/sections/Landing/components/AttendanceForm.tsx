@@ -17,6 +17,7 @@ import { FormCheckbox, FormRadio } from '@/components/dom/Form'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import AppearingEffect from '../../../components/dom/AppearingEffect'
+import { useRouter } from 'next/router'
 
 const Message = ({ show, message, error = true }) => (
   <Box
@@ -33,6 +34,7 @@ const Message = ({ show, message, error = true }) => (
 )
 
 const AttendanceForm = () => {
+  const { asPath } = useRouter()
   const {
     reset,
     control,
@@ -45,34 +47,68 @@ const AttendanceForm = () => {
     },
   })
 
-  const submitForm: any = useMutation(
-    (payload) => {
-      //   return axios.post('/api/email/send', payload)
-      return new Promise((res) => setTimeout(() => res('e'), 2000))
-    },
-    {
-      onSuccess: () => {
-        useStore.setState({
-          showCert: true,
-        })
-        reset()
+  // const submitForm: any = useMutation(
+  //   (payload:any) => {
+  //     //   return axios.post('/api/email/send', payload)
+  //     return new Promise((res) => setTimeout(() => res('e'), 2000))
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       useStore.setState({
+  //         showCert: true,
+  //         name: nombre
+  //       })
+  //       reset()
+  //     },
+  //   }
+  // )
+
+  const pathToImgCert = () => {
+    const map = {
+      workshops: {
+        AlanCourtis: '/img/workshops/AlanCourtis.png',
+        DianaAisenberg: '/img/workshops/DianaAisenberg.png',
+        ExperienciaRocambole: '/img/workshops/ExperienciaRocambole.png',
+        ExtraBrut: '/img/workshops/ExtraBrut.png',
+        Larutadeloslogos: '/img/workshops/Larutadeloslogos.png',
+        PublicacionesExperimentales:
+          '/img/workshops/PublicacionesExperimentales.png',
+        WEB3: '/img/workshops/WEB3.png',
+      },
+      asistencia: {
+        asistencia: '/img/asistencia/Asistencia.png',
+      },
+      grupos: {
+        grupos: '/img/grupos/Grupos.png',
+      },
+      CE: {
+        CE: '/img/CE/CE.png',
       },
     }
-  )
 
-  const submit = (form) => {
-    submitForm.mutate({
-      sender: {
-        name: 'contact form',
-        email: 'marplacode@gmail.com',
-        password: process.env.SENDER_PASSWORD_FORM,
-      },
-      recipient: {
-        email: 'hello@marplacode.com',
-      },
-      subject: 'Work inquiry!',
-      content: JSON.stringify(form),
-    })
+    const certType = asPath.split('/')[1]
+    const certName = asPath.split('/')[2]
+    let certPath = certType && certName ? map[certType][certName] : null
+
+    return certPath
+  }
+
+  const delay = (time = 3000) =>
+    new Promise((res) => setTimeout(() => res('e'), time))
+
+  const [loading, setLoading] = useState(false)
+
+  const submit = async (form) => {
+    setLoading(true)
+    await delay()
+    if (pathToImgCert()) {
+      useStore.setState({
+        showCert: true,
+        name: form.name,
+        certPath: pathToImgCert(),
+      })
+      setLoading(false)
+    }
   }
 
   return (
@@ -82,48 +118,35 @@ const AttendanceForm = () => {
       }}
     >
       <Flex flexDirection='column' pt='50px' maxWidth='500px'>
-        <AppearingEffect effect={'bottom'} animationProps={{ delay: 3000 }}>
-          <Text type={theme.fonts.span}>Email*</Text>
-          <FormTextField
-            control={control}
-            name='email'
-            inputmode='email'
-            placeholder='tmdg@20.ar'
-            enterkeyhint='next'
-            rules={{
-              required: 'we need your email to reach out to you 🙏',
-              pattern: {
-                message: 'formato de mail invalido',
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              },
-            }}
-          />
-        </AppearingEffect>
-        <Message
-          show={errors?.email?.message}
-          message='formato de mail invalido'
-        />
-        <Spacer vertical={'32px'} />
         <AppearingEffect effect={'bottom'} animationProps={{ delay: 3500 }}>
-          <Text type={theme.fonts.span}>Numero de ticket*</Text>
+          <Text type={theme.fonts.span}>Nombre*</Text>
           <FormTextField
             control={control}
             name='name'
-            placeholder='123456'
+            placeholder='juancito perez'
             enterkeyhint='next'
             rules={{
               required: `campo requerido`,
             }}
           />
         </AppearingEffect>
-        <Message show={errors?.name?.message} message='campo requerido' />
+        <Message show={errors?.name?.message} message='Dime tu nombre! 😡' />
         <Spacer vertical={'62px'} />
+
         <AppearingEffect effect={'bottom'} animationProps={{ delay: 4000 }}>
           <Button type='submit' onClick={handleSubmit(submit)}>
             Generar
           </Button>
         </AppearingEffect>
+
+        <Message
+          show={loading}
+          message={
+            pathToImgCert()
+              ? 'Generando magia... ✨🎉'
+              : 'URL de certificado incorrecta 🤷‍♂️'
+          }
+        />
         <Spacer vertical={'62px'} />
       </Flex>
     </form>

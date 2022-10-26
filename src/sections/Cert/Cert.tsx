@@ -26,6 +26,9 @@ const ButtonContainer = styled(Flex)`
 `
 
 const Cert = () => {
+  const name = useStore((state: any) => state.name)
+  const certPath = useStore((state: any) => state.certPath)
+
   return (
     <Container
       // bg='#9b92fd'
@@ -40,12 +43,12 @@ const Cert = () => {
         <Box position='absolute' zIndex='1' top='182px' left='200px'>
           <AppearingEffect effect={'bottom'} animationProps={{ delay: 3000 }}>
             <Text type={theme.fonts.h2} color='#000'>
-              Pacheco Trimarchi
+              {name}
             </Text>
           </AppearingEffect>
         </Box>
         <AppearingEffect effect={'bottom'} animationProps={{ delay: 2000 }}>
-          <img src='/img/cert.png' height='555px' width='800px'></img>
+          <img src={certPath} height='555px' width='800px'></img>
         </AppearingEffect>
       </Flex>
       <ButtonContainer

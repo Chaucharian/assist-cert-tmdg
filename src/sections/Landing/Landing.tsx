@@ -19,55 +19,8 @@ import { SECTIONS } from '@/pages'
 import { Line } from '../../components'
 import AttendanceForm from './components/AttendanceForm'
 
-const IndicatorContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-`
-
-const smookesMock = [
-  {
-    name: 'Digital Studio',
-    description: 'creating next gen web/mobile',
-  },
-  { name: 'best-in-class', description: 'experiences and technologies' },
-  { name: 'hand-crafted', description: 'crafting refined visual outputs' },
-]
-
 const Landing = () => {
-  const onScroll = useCallback((progress) => {
-    // set intro video on landing
-    if (progress < 12) {
-      useStore.setState({
-        videoUrl: '/videos/liquid.mp4',
-      })
-    }
-  }, [])
-  const { progress, locomotiveScroll } = useScroll({})
-  const [buttonEffect, setButtonEffect] = useState(false)
-
-  const smookes = smookesMock.map(({ name, description }) => (
-    <>
-      <Text fontFamily='LibreFranklin' fontWeight='lighter' fontSize='42px'>
-        {name}
-      </Text>
-      <Text type={theme.fonts.p} color='grey' fontWeight={'lighter'}>
-        {description}
-      </Text>
-    </>
-  ))
-
   const show = true
-
-  const domReady = () => {
-    setTimeout(() => useStore.setState({ domReady: true }), 1000)
-  }
 
   return (
     <Container>
