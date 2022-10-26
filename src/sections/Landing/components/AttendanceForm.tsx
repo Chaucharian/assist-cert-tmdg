@@ -64,7 +64,7 @@ const AttendanceForm = () => {
   // )
 
   const pathToImgCert = () => {
-    const map = {
+    const certificates = {
       workshops: {
         AlanCourtis: '/img/workshops/AlanCourtis.png',
         DianaAisenberg: '/img/workshops/DianaAisenberg.png',
@@ -86,9 +86,17 @@ const AttendanceForm = () => {
       },
     }
 
+    let certPath = null
     const certType = asPath.split('/')[1]
-    const certName = asPath.split('/')[2]
-    let certPath = certType && certName ? map[certType][certName] : null
+
+    if (asPath.includes('workshops')) {
+      const certName = asPath.split('/')[2]
+      certPath = certType && certName ? certificates[certType][certName] : null
+    } else {
+      certPath = certificates[certType]
+        ? certificates[certType][certType]
+        : null
+    }
 
     return certPath
   }
