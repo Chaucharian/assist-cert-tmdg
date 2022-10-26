@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import useStore from '@/helpers/store'
 
 import Navigation from '@/components/dom/Navigation/Navigation'
@@ -13,9 +13,10 @@ import { Flex, Box, Text } from '@/components'
 import AppearingEffect from '@/components/dom/AppearingEffect'
 import { theme } from '@/styles'
 
-const Section = styled.section`
-  ${({ height = '100vh' }) => `
-`}
+const MarplacodeBannerContainer = styled.div`
+  @media print {
+    display: none;
+  }
 `
 
 export enum SECTIONS {
@@ -40,27 +41,35 @@ const Page = (props) => {
     }
   }, [video])
 
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 500)
+  }, [])
+
   return (
     <>
-      <ColorLoader isLoading={showCert} />
+      <ColorLoader isLoading={loading} />
       {showCert ? <Cert /> : <Landing />}
-      <Box position='fixed' right='10%' bottom='5%'>
-        <AppearingEffect
-          effect={true ? 'bottom' : 'top'}
-          animationProps={{ delay: 3500, minWidth: '400px' }}
-          show={true}
-        >
-          <Flex justifyContent='flex-end' alignContent='center' pt='12px'>
-            <Box mr='4px'>
-              <Text type={theme.fonts.span}>proudly built by</Text>
-            </Box>
+      <MarplacodeBannerContainer>
+        <Box position='fixed' right='10%' bottom='10px'>
+          <AppearingEffect
+            effect={true ? 'bottom' : 'top'}
+            animationProps={{ delay: 4000, minWidth: '400px' }}
+            show={true}
+          >
+            <Flex justifyContent='flex-end' alignContent='center' pt='12px'>
+              <Box mr='4px'>
+                <Text type={theme.fonts.span}>proudly built by</Text>
+              </Box>
 
-            <a href='https://www.marplacode.com' target='_blank'>
-              <img src='/img/marplacodesvg.svg' width='20px' height='20px' />
-            </a>
-          </Flex>
-        </AppearingEffect>
-      </Box>
+              <a href='https://www.marplacode.com' target='_blank'>
+                <img src='/img/marplacodesvg.svg' width='20px' height='20px' />
+              </a>
+            </Flex>
+          </AppearingEffect>
+        </Box>
+      </MarplacodeBannerContainer>
     </>
   )
 }

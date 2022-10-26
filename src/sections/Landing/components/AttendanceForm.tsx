@@ -35,6 +35,7 @@ const Message = ({ show, message, error = true }) => (
 
 const AttendanceForm = () => {
   const { asPath } = useRouter()
+  const gruposType = asPath.includes('grupos')
   const {
     reset,
     control,
@@ -46,22 +47,6 @@ const AttendanceForm = () => {
       ticket: '',
     },
   })
-
-  // const submitForm: any = useMutation(
-  //   (payload:any) => {
-  //     //   return axios.post('/api/email/send', payload)
-  //     return new Promise((res) => setTimeout(() => res('e'), 2000))
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       useStore.setState({
-  //         showCert: true,
-  //         name: nombre
-  //       })
-  //       reset()
-  //     },
-  //   }
-  // )
 
   const pathToImgCert = () => {
     const certificates = {
@@ -113,7 +98,12 @@ const AttendanceForm = () => {
       useStore.setState({
         showCert: true,
         name: form.name,
+        groupName: form?.group,
         certPath: pathToImgCert(),
+        fileName: `TRImarchi 20 | ${
+          asPath.split('/')[1].charAt(0).toUpperCase() +
+          asPath.split('/')[1].slice(1)
+        }`,
       })
       setLoading(false)
     }
@@ -139,6 +129,28 @@ const AttendanceForm = () => {
           />
         </AppearingEffect>
         <Message show={errors?.name?.message} message='Dime tu nombre! 😡' />
+
+        {gruposType && (
+          <>
+            <AppearingEffect effect={'bottom'} animationProps={{ delay: 3500 }}>
+              <Text type={theme.fonts.span}>Nombre del grupo*</Text>
+              <FormTextField
+                control={control}
+                name='group'
+                placeholder='team trima'
+                enterkeyhint='next'
+                rules={{
+                  required: `campo requerido`,
+                }}
+              />
+            </AppearingEffect>
+            <Message
+              show={errors?.name?.message}
+              message='como se llamaba el grupo?'
+            />
+          </>
+        )}
+
         <Spacer vertical={'62px'} />
 
         <AppearingEffect effect={'bottom'} animationProps={{ delay: 4000 }}>
