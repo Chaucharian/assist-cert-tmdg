@@ -18,7 +18,7 @@ export const size = {
 export const fonts = {
   h1: {
     desktop: '70px',
-    mobile: '50px',
+    mobile: '30px',
     family: 'Helvetica',
     fontWeight: 'normal',
   },

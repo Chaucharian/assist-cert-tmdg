@@ -40,7 +40,7 @@ const Cert = () => {
         <Box position='absolute' zIndex='1' top='182px' left='200px'>
           <AppearingEffect effect={'bottom'} animationProps={{ delay: 3000 }}>
             <Text type={theme.fonts.h2} color='#000'>
-              Emiliano Firpo
+              Pacheco Trimarchi
             </Text>
           </AppearingEffect>
         </Box>
@@ -56,7 +56,7 @@ const Cert = () => {
       >
         <AppearingEffect effect={'bottom'} animationProps={{ delay: 4000 }}>
           <Button type='submit' onClick={() => window.print()}>
-            Descargar
+            Imprimir
           </Button>
         </AppearingEffect>
       </ButtonContainer>

@@ -17,7 +17,7 @@ import {
 const defaultTitle = 'Marplacode - beauty experiences'
 const url = 'https://marplacode.com'
 const description =
-  'Digital agency focused on building high quality digital products. We develop handcrafted websites, IOS/Android mobile applications'
+  'Attendance certification generator for TrimarchiDG TMDG 20 años'
 const author = 'Marplacode'
 
 const queryClient = new QueryClient()
@@ -90,15 +90,17 @@ const Header = ({ title = defaultTitle }) => {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              <!-- Hotjar Tracking Code for my site -->
-                  (function(h,o,t,j,a,r){
-                      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                      h._hjSettings={hjid:3149587,hjsv:6};
-                      a=o.getElementsByTagName('head')[0];
-                      r=o.createElement('script');r.async=1;
-                      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                      a.appendChild(r);
-                  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            <!-- Hotjar Tracking Code for https://tmdg.marplacode.com -->
+            <script>
+                (function(h,o,t,j,a,r){
+                    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                    h._hjSettings={hjid:3219803,hjsv:6};
+                    a=o.getElementsByTagName('head')[0];
+                    r=o.createElement('script');r.async=1;
+                    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                    a.appendChild(r);
+                })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            </script>
                   `,
           }}
         />

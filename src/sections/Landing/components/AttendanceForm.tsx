@@ -81,11 +81,8 @@ const AttendanceForm = () => {
         e.preventDefault()
       }}
     >
-      <Flex flexDirection='column' pt='50px' width='500px'>
-        <AppearingEffect
-          effect={'bottom'}
-          animationProps={{ delay: 3000, minWidth: '400px' }}
-        >
+      <Flex flexDirection='column' pt='50px' maxWidth='500px'>
+        <AppearingEffect effect={'bottom'} animationProps={{ delay: 3000 }}>
           <Text type={theme.fonts.span}>Email*</Text>
           <FormTextField
             control={control}
@@ -108,10 +105,7 @@ const AttendanceForm = () => {
           message='formato de mail invalido'
         />
         <Spacer vertical={'32px'} />
-        <AppearingEffect
-          effect={'bottom'}
-          animationProps={{ delay: 3500, minWidth: '400px' }}
-        >
+        <AppearingEffect effect={'bottom'} animationProps={{ delay: 3500 }}>
           <Text type={theme.fonts.span}>Numero de ticket*</Text>
           <FormTextField
             control={control}
@@ -125,10 +119,7 @@ const AttendanceForm = () => {
         </AppearingEffect>
         <Message show={errors?.name?.message} message='campo requerido' />
         <Spacer vertical={'62px'} />
-        <AppearingEffect
-          effect={'bottom'}
-          animationProps={{ delay: 4000, minWidth: '400px' }}
-        >
+        <AppearingEffect effect={'bottom'} animationProps={{ delay: 4000 }}>
           <Button type='submit' onClick={handleSubmit(submit)}>
             Generar
           </Button>

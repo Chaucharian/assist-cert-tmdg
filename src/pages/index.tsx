@@ -40,7 +40,7 @@ const Page = (props) => {
 
   return (
     <>
-      <ColorLoader isLoading={false} />
+      <ColorLoader isLoading={showCert} />
       {showCert ? <Cert /> : <Landing />}
     </>
   )
@@ -51,7 +51,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Marplacode | Creative Agency',
+      title: 'Marplacode; x TMDG | Certificates',
     },
   }
 }
